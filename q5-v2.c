@@ -1,4 +1,3 @@
-// https://stackoverflow.com/questions/2015673/mpi-usage-in-windows/2291105#2291105
 #include <stdio.h>
 #include <mpi.h>
 
