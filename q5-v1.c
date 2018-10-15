@@ -11,6 +11,10 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i <= N; i++) {
         input[i] = i;
     }
+    for (int i = 1; i < 10; i++) {
+        printf("%d ", input[i]);
+    }
+    printf("... \n");
 
     // MPI variables
     int rank, size;
@@ -64,7 +68,7 @@ int main(int argc, char *argv[]) {
 
     // finally the sum will be stored in the master processes's partial sum
     if (rank == 0) {
-        printf("Sum: %lld", partial_sum);
+        printf("Sum: %lld\n", partial_sum);
     }
 
     // terminate MPI env

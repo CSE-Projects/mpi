@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     }
     // master process broadcasts the value of num_steps tp all processes in MPI_COMM_WORLD communicator
     MPI_Bcast(&num_steps, 1, MPI_LONG, 0, MPI_COMM_WORLD);
-    // there exists an implicit barrier after this so that all process get the broadcasted value
+    // there exists an implicit barrier in the sense that that all process get the broadcasted value and as soon as they get they will proceed further
 
     // pi calculcation which each process calculates and stores in mypi
     double x, mypi, step, sum = 0.0;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     mypi = step * sum;
 
     // mypi value of each process combined and stored in pi of master process in MPI_COMM_WORLD communicator
-    // implicit barrier before all values from processes are reduced 
+    // process 0 will wait until all processes have completed their calculation and returned the value
     MPI_Reduce(&mypi, &pi, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
     // master prints the pi value stored in it

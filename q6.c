@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 
 	// process 0 does the non-uniform scatter to other processes
 	MPI_Scatterv(data, sendcounts, displs, MPI_FLOAT, recv, 100, MPI_FLOAT, 0, MPI_COMM_WORLD);
-    // implicit barrier here
+    // all process wait until they get their share after which they proceed asynchronously
 
     // calculate sqrt of received data
     for (int i = 0; i < sendcounts[rank]; i++) {
@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     }
 
 	// gather all results from recv to accumulate in data array of process 0 
-	// implicit barrier here
+	// process 0 waits until all send their data shares
     MPI_Gatherv(recv, sendcounts[rank], MPI_FLOAT, data, sendcounts, displs, MPI_FLOAT, 0, MPI_COMM_WORLD);
 
 	// Printing the data of process 0
